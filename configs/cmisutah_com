@@ -1,0 +1,42 @@
+server {
+	listen 8080;
+	listen 80;
+	root			/vagrant;
+	index			index.php;
+
+	add_header "Built-with" "statamic";
+	add_header "X-UA-Compatible" "IE=Edge,chrome=1";
+
+	# Deny access to configuration files
+	location ~* ^/_config {
+		deny all;
+		return 404;
+	}
+	# Favicon
+	location ~* \.ico$ {
+		expires 1w;
+		add_header Cache-Control "public";
+	}
+	# deny access to any hidden files starting with ".", eg. .htaccess .git, etc
+	location ~ /\. {
+		deny all;
+		return 404;
+		log_not_found off;
+	}
+
+	location ~ (\.yaml) {
+		return 404;
+	}
+
+	# Return a static file, if it exists, or pass to front controller
+	location / {
+		rewrite ^/admin.php.*$ /admin.php;
+		try_files $uri $uri/ /index.php?$args;
+	}
+
+	# Pass PHP requests on to PHP-FPM
+	location ~* \.php$ {
+		fastcgi_pass unix:/var/run/php5-fpm-cmisutah_com.socket;
+		include fastcgi_params;
+	}
+}
