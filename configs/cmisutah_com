@@ -1,6 +1,5 @@
 server {
 	listen 8080;
-	listen 80;
 	root			/vagrant;
 	index			index.php;
 
