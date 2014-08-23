@@ -21,7 +21,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
-  config.vm.network 'forwarded_port', guest: 8080, host: 8080
+  config.vm.network 'forwarded_port', guest: 8003, host: 8003
 
   config.vm.synced_folder "./properties", "/properties"
 
