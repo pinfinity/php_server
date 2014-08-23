@@ -1,0 +1,30 @@
+#!/bin/bash
+BIN="$(cd `dirname "$0"` && pwd)"
+BASE="$( dirname "$BIN" )"
+
+main () {
+  local cmd="$1"
+  case $cmd in
+    'setup')
+      shift
+      setup "$@"
+      ;;
+    * )
+      echo "
+Exiting without running any operations.
+Possible operations include:
+
+  setup - Setup the Pinfinity PHP web development environment.
+  Usage: bin/manage setup
+      "
+      ;;
+  esac
+}
+
+setup () {
+  if [ ! -d "$BASE/properties" ]; then
+    mkdir "$BASE/properties"
+  fi
+}
+
+main "$@"
