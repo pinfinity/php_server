@@ -15,10 +15,9 @@ echo "************************************************************"
 sudo apt-get install -y build-essential git-core vim curl ack-grep wget tree
 
 echo "************************************************************"
-echo "Adding ppa:nginx/stable ppa:chris-lea/node.js"
+echo "Adding ppa:nginx/stable"
 echo "************************************************************"
 sudo apt-add-repository -y ppa:nginx/stable
-sudo apt-add-repository -y ppa:chris-lea/node.js
 
 echo "************************************************************"
 echo "Updating again"
@@ -85,7 +84,3 @@ echo "************************************************************"
 sudo service php5-fpm restart
 sudo service nginx restart
 
-echo "************************************************************"
-echo "Correct ownership of the FPM socket ..."
-echo "************************************************************"
-sudo chown vagrant:www-data /var/run/php5-fpm-cmisutah_com.socket
