@@ -2,12 +2,21 @@
 BIN="$(cd `dirname "$0"` && pwd)"
 BASE="$( dirname "$BIN" )"
 
+fail () {
+  echo "$@" >&2
+  exit 1
+}
+
 main () {
   local cmd="$1"
   case $cmd in
     'setup')
       shift
       setup "$@"
+      ;;
+    'deploy_configs')
+      shift
+      deploy_configs "$@"
       ;;
     * )
       echo "
@@ -16,6 +25,9 @@ Possible operations include:
 
   setup - Setup the Pinfinity PHP web development environment.
   Usage: bin/manage setup
+
+  deploy_site_configs - Deploy property/site configurations to the target box.
+  Usage: bin/manage deploy_site_configs <ip address or domain name>
       "
       ;;
   esac
@@ -25,6 +37,16 @@ setup () {
   if [ ! -d "$BASE/properties" ]; then
     mkdir "$BASE/properties"
   fi
+}
+
+deploy_configs () {
+  local target="$1"
+  if [ -z $target ]; then
+    fail "The target argument is required."
+  fi
+
+  scp -r "$BASE/configs" "$target:~/"
+  scp -r "$BASE/scripts" "$target:~/"
 }
 
 main "$@"
