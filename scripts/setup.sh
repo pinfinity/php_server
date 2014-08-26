@@ -52,6 +52,7 @@ add_nginx_repo () {
 
 update_package_list () {
   print_section "Updating package list"
+  sudo apt-get update
 }
 
 install_nginx () {
@@ -95,14 +96,16 @@ configure_php5fpm () {
   if [ ! -d /var/run/php5-fpm ]; then
     sudo mkdir /var/run/php5-fpm || fail "Unable to create /var/run/php5-fpm"
   fi
-  (sudo cp /vagrant/configs/default_nginx.conf /etc/php5/fpm/pool.d/default_nginx.conf
-  && sudo cp /vagrant/configs/index.php /usr/share/nginx/html/index.php) || fail "Unable to copy PHP FPM config files."
+  ( sudo cp /vagrant/configs/default_nginx.conf /etc/php5/fpm/pool.d/default_nginx.conf \
+    && sudo cp /vagrant/configs/index.php /usr/share/nginx/html/index.php ) \
+    || fail "Unable to copy PHP FPM config files."
 }
 
 configure_nginx () {
   print_section "Configure Nginx"
-  (sudo cp /vagrant/configs/nginx.conf /etc/nginx/nginx.conf
-  && sudo cp /vagrant/configs/nginx_default /etc/nginx/sites-available/default) || fail "Unable to copy Nginx config files."
+  ( sudo cp /vagrant/configs/nginx.conf /etc/nginx/nginx.conf \
+    && sudo cp /vagrant/configs/nginx_default /etc/nginx/sites-available/default ) \
+    || fail "Unable to copy Nginx config files."
 }
 
 restart_services () {
