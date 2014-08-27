@@ -26,11 +26,36 @@ Possible operations include:
   setup - Setup the Pinfinity PHP web development environment.
   Usage: bin/manage setup
 
-  deploy_site_configs - Deploy property/site configurations to the target box.
+  deploy_configs - Deploy property/site configurations to the target box.
   Usage: bin/manage deploy_site_configs <ip address or domain name>
       "
       ;;
   esac
+}
+
+remote_sync () {
+    local src=$1
+    local dest=$2
+    local no_delete=$3
+    local exclude_list=$4
+
+    local rsync_opts="\
+    --recursive \
+    --compress \
+    --links \
+    --perms \
+    --times \
+    --omit-dir-times \
+    --progress \
+    --human-readable \
+    "
+    if [ ! -z $exclude_list ]; then
+        rsync_opts="$rsync_opts --exclude-from=$exclude_list"
+    fi
+    if [ "$no_delete" != "--no-delete" ]; then
+        rsync_opts="--delete $rsync_opts"
+    fi
+    rsync $rsync_opts "$src" "$dest"
 }
 
 setup () {
@@ -45,8 +70,8 @@ deploy_configs () {
     fail "The target argument is required."
   fi
 
-  scp -r "$BASE/configs" "$target:~/"
-  scp -r "$BASE/scripts" "$target:~/"
+  remote_sync "$BASE/configs" "$target:/vagrant/"
+  remote_sync "$BASE/scripts" "$target:/vagrant/"
 }
 
 main "$@"
