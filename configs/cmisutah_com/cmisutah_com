@@ -1,6 +1,6 @@
 server {
 	listen 8003;
-	root			/properties/cmisutah_com;
+	root			/vagrant/properties/cmisutah_com;
 	index			index.php;
 
 	add_header "Built-with" "statamic";
