@@ -7,10 +7,10 @@ fail () {
 
 main () {
   update_package_list
-  install_apt_add
+#  install_apt_add
   install_tools
-  add_nginx_repo
-  update_package_list
+#  add_nginx_repo
+#  update_package_list
   install_nginx
   install_php5_fpm
   clean_up_packages
@@ -40,15 +40,15 @@ install_tools () {
     || fail "Unable to install tools."
 }
 
-install_apt_add () {
-  print_section "Installing apt-add-repository"
-  sudo apt-get install -y python-software-properties || fail "Unable to install python-software-properties"
-}
+#install_apt_add () {
+#  print_section "Installing apt-add-repository"
+#  sudo apt-get install -y python-software-properties || fail "Unable to install python-software-properties"
+#}
 
-add_nginx_repo () {
-  print_section "Adding ppa:nginx/stable"
-  sudo apt-add-repository -y ppa:nginx/stable || fail "Unable to install Nginx repo"
-}
+#add_nginx_repo () {
+#  print_section "Adding ppa:nginx/stable"
+#  sudo apt-add-repository -y ppa:nginx/stable || fail "Unable to install Nginx repo"
+#}
 
 update_package_list () {
   print_section "Updating package list"
