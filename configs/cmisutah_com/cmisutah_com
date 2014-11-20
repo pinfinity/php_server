@@ -1,7 +1,9 @@
 server {
-	listen 8003;
+	listen 80;
 	root			/vagrant/properties/cmisutah_com;
 	index			index.php;
+
+	server_name cmis-utah.doesntexist.com;
 
 	add_header "Built-with" "statamic";
 	add_header "X-UA-Compatible" "IE=Edge,chrome=1";
@@ -33,9 +35,11 @@ server {
 		try_files $uri $uri/ /index.php?$args;
 	}
 
-	# Pass PHP requests on to PHP-FPM
-	location ~* \.php$ {
-		fastcgi_pass unix:/var/run/php5-fpm-cmisutah_com.socket;
-		include fastcgi_params;
+	location ~ \.php$ {
+	      try_files $uri =404;
+	      fastcgi_split_path_info ^(.+\.php)(/.+)$;
+	      fastcgi_pass unix:/var/run/php5-fpm.sock;
+	      fastcgi_index index.php;
+	      include fastcgi_params;
 	}
 }
