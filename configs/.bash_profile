@@ -40,4 +40,4 @@ alias sl=ls # often screw this up
 
 alias afind='ack-grep -il'
 
-eval "$(/vagrant/sub/bin/kalamari init -)"
+# eval "$(/vagrant/sub/bin/kalamari init -)"
