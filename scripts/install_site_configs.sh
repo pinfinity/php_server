@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sites=( "cmisutah_com" )
+sites=( "cmisutah_com" "pinfinity_co" )
 
 fail () {
   echo "$@" >&2
@@ -25,7 +25,8 @@ configure_php5fpm () {
   if [ ! -d /var/run/php5-fpm ]; then
     echo "ok"
   fi
-  for i in $sites; do
+  #for i in $sites; do
+  for i in "${sites[@]}"; do
     sudo cp "/vagrant/configs/$i/$i.conf" "/etc/php5/fpm/pool.d/$i.conf"
   done
 }
@@ -35,7 +36,8 @@ configure_nginx () {
   ( sudo cp /vagrant/configs/nginx.conf /etc/nginx/nginx.conf \
     && sudo cp /vagrant/configs/nginx_default /etc/nginx/sites-available/default ) \
     || fail "Unable to copy Nginx config files."
-  for i in $sites; do
+  #for i in $sites; do
+  for i in "${sites[@]}"; do
     sudo cp "/vagrant/configs/$i/$i" "/etc/nginx/sites-enabled/"
   done
 }

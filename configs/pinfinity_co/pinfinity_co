@@ -1,9 +1,9 @@
 server {
 	listen 80;
-	root			/vagrant/properties/cmisutah_com;
+	root			/vagrant/properties/pinfinity_co;
 	index			index.php;
 
-	server_name cmis-utah.doesntexist.com;
+	server_name pinfinity.doesntexist.com;
 
 	add_header "Built-with" "statamic";
 	add_header "X-UA-Compatible" "IE=Edge,chrome=1";
@@ -38,7 +38,7 @@ server {
 	location ~ \.php$ {
 	      try_files $uri =404;
 	      fastcgi_split_path_info ^(.+\.php)(/.+)$;
-	      fastcgi_pass unix:/var/run/php5-fpm-cmisutah_com.socket;
+	      fastcgi_pass unix:/var/run/php5-fpm-pinfinity_co.socket;
 	      fastcgi_index index.php;
 	      include fastcgi_params;
 	}

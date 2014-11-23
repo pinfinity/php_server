@@ -37,6 +37,8 @@ install_tools () {
     ack-grep \
     wget \
     tree \
+    zip \
+    unzip \
     || fail "Unable to install tools."
 }
 
