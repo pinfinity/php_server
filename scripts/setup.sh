@@ -18,6 +18,7 @@ main () {
   configure_php5fpm
   configure_nginx
   restart_services
+  make_properties_dir
 }
 
 print_section () {
@@ -114,6 +115,12 @@ restart_services () {
   print_section "Restart services"
   sudo service php5-fpm restart
   sudo service nginx restart
+}
+
+make_properties_dir () {
+  print_section "Making vagrant's properties directory"
+  sudo mkdir -p /vagrant/properties
+  sudo chown -R vagrant:vagrant /vagrant 
 }
 
 main "$@"
