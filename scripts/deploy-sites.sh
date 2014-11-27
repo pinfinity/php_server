@@ -9,6 +9,7 @@ fail () {
 
 main () {
   git_deploy_all_sites
+  make_statamic_dirs
 }
 
 print_section () {
@@ -28,8 +29,17 @@ git_deploy_all_sites () {
   for i in "${sites[@]}"; do
     print_section "Deploying $i from github.com"
     sudo git clone "https://github.com/pinfinity/$i"
+    sudo chown -R vagrant:vagrant "$i"
   done
+}
 
+make_statamic_dirs () {
+  for i in "${sites[@]}"; do
+    print_section "Making Statamic directories for $i"
+    cd "/vagrant/properties/$i"
+    mkdir _logs _cache
+    chmod 777 _logs _cache
+  done
 }
 
 main "$@"
