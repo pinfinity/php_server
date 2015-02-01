@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sites=( "cmisutah_com" "pinfinity_co" )
+sites=( "cmisutah_com" "dev_cmisutah_com" "pinfinity_co" )
 
 fail () {
   echo "$@" >&2
@@ -38,6 +38,7 @@ configure_nginx () {
     || fail "Unable to copy Nginx config files."
   #for i in $sites; do
   for i in "${sites[@]}"; do
+    echo $i
     sudo cp "/vagrant/configs/$i/$i" "/etc/nginx/sites-enabled/"
   done
 }

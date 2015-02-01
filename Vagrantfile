@@ -23,7 +23,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.network 'forwarded_port', guest: 8003, host: 8003
 
-  config.vm.synced_folder "./properties", "/properties"
+  # config.vm.synced_folder "./properties", "/properties"
 
   config.ssh.forward_agent = true
   config.vm.provision 'shell', path: 'scripts/setup.sh'

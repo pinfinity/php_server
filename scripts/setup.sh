@@ -100,6 +100,7 @@ configure_php5fpm () {
     sudo mkdir /var/run/php5-fpm || fail "Unable to create /var/run/php5-fpm"
   fi
   ( sudo cp /vagrant/configs/default_nginx.conf /etc/php5/fpm/pool.d/default_nginx.conf \
+    && sudo mkdir -p /usr/share/nginx/html/ \
     && sudo cp /vagrant/configs/index.php /usr/share/nginx/html/index.php ) \
     || fail "Unable to copy PHP FPM config files."
 }
