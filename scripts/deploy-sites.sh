@@ -11,7 +11,7 @@ fail () {
 main () {
   git_deploy_all_sites
   make_statamic_dirs
-  symlink_dev_directories  
+  # symlink_dev_directories  
 }
 
 print_section () {
@@ -34,17 +34,18 @@ symlink_dev_directories () {
 }
 
 git_deploy_all_sites () {
-  #cd /vagrant/properties
   for i in "${sites[@]}"; do
     cd /vagrant/properties
     print_section "Deploying $i from github.com"
     sudo git clone "https://github.com/pinfinity/$i"
-    cd $i
+    sudo git clone "https://github.com/pinfinity/$i" dev_$i
+    cd /vagrant/properties/$i
     for remote in `git branch -r`; do git branch --track $remote; done
-    # for remote in `git branch -r`; do echo $remote; done
-    # sudo git fetch --all
     sudo git pull --all
-    sudo chown -R vagrant:vagrant "$i"
+    cd /vagrant/properties/dev_$i
+    for remote in `git branch -r`; do git branch --track $remote; done
+    sudo git pull --all
+    sudo chown -R vagrant:vagrant "/vagrant/properties/$i" "/vagrant/properties/dev_$i"
   done
 }
 
