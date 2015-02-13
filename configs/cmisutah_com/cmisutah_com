@@ -3,7 +3,7 @@ server {
 	root			/vagrant/properties/cmisutah_com;
 	index			index.php;
 
-	server_name cmibs.com;
+	server_name cmibs.com www.cmibs.com;
 
 	add_header "Built-with" "statamic";
 	add_header "X-UA-Compatible" "IE=Edge,chrome=1";
